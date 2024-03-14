@@ -16,6 +16,7 @@ public class SignUpTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
         driver.get("http://www.kurs-selenium.pl/demo/");
+        int randomNumber = (int) (Math.random()*10000);
 
         //set sign up site
         //driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
@@ -32,7 +33,7 @@ public class SignUpTest {
         WebElement phoneNumber = driver.findElement(By.name("phone"));
         phoneNumber.sendKeys("123456789");
         WebElement emailAddress = driver.findElement(By.name("email"));
-        emailAddress.sendKeys("test2@tester.com");
+        emailAddress.sendKeys("test"+randomNumber+"@tester.com");
         WebElement password = driver.findElement(By.name("password"));
         password.sendKeys("test123");
         WebElement confirmPassword = driver.findElement(By.name("confirmpassword"));
@@ -41,6 +42,6 @@ public class SignUpTest {
         signUpBttn.click();
 
         WebElement heading = driver.findElement(By.xpath("//h3[@class='RTL']"));
-        Assert.assertTrue(heading.getText().contains("Hi, Marcin Testerski"));
+        Assert.assertEquals(heading.getText(), "Hi, Marcin Testerski");
     }
 }
