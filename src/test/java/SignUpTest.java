@@ -8,7 +8,6 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 public class SignUpTest {
@@ -46,6 +45,7 @@ public class SignUpTest {
 
         WebElement heading = driver.findElement(By.xpath("//h3[@class='RTL']"));
         Assert.assertEquals(heading.getText(), "Hi, Marcin Testerski");
+        driver.quit();
     }
 
 
@@ -73,6 +73,7 @@ public class SignUpTest {
         softAssert.assertTrue(errors.contains("The First name field is required."));
         softAssert.assertTrue(errors.contains("The Last Name field is required."));
         softAssert.assertAll();
+        driver.quit();
     }
 
 
@@ -108,5 +109,6 @@ public class SignUpTest {
                 .stream().map(WebElement::getText).toList();
 
         Assert.assertTrue(errors.contains("The Email field must contain a valid email address."));
+        driver.quit();
     }
 }

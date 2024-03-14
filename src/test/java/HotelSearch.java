@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 public class HotelSearch {
@@ -60,5 +59,6 @@ public class HotelSearch {
         Assert.assertEquals("Oasis Beach Tower",hotelNames.get(1));
         Assert.assertEquals("Rose Rayhaan Rotana",hotelNames.get(2));
         Assert.assertEquals("Hyatt Regency Perth",hotelNames.get(3));
+        driver.quit();
     }
 }
