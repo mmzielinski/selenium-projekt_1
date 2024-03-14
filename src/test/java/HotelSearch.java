@@ -2,9 +2,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class HotelSearch {
@@ -34,9 +37,9 @@ public class HotelSearch {
         checkOut.click();
         driver.findElements(By.xpath("//td[@class='day ' and text()='29']"))
                 .stream()
-                .filter(element -> element.isDisplayed())
+                .filter(WebElement::isDisplayed)
                 .findFirst()
-                .ifPresent(element ->  element.click());
+                .ifPresent(WebElement::click);
 
         //set travellers
         WebElement travellers = driver.findElement(By.id("travellersInput"));
@@ -45,5 +48,17 @@ public class HotelSearch {
         adultsPlusButton.click();
         WebElement childPlusButton = driver.findElement(By.id("childPlusBtn"));
         childPlusButton.click();
+
+        //set search & assert
+        WebElement searchButton = driver.findElement(By.xpath("//button[text()=' Search']"));
+        searchButton.click();
+
+        List<String> hotelNames = driver.findElements(By.xpath("//h4[contains(@class, 'list_title')]//b"))
+                .stream().map(element -> element.getAttribute("textContent")).toList();
+
+        Assert.assertEquals("Jumeirah Beach Hotel",hotelNames.get(0));
+        Assert.assertEquals("Oasis Beach Tower",hotelNames.get(1));
+        Assert.assertEquals("Rose Rayhaan Rotana",hotelNames.get(2));
+        Assert.assertEquals("Hyatt Regency Perth",hotelNames.get(3));
     }
 }
