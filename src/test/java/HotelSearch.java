@@ -37,5 +37,13 @@ public class HotelSearch {
                 .filter(element -> element.isDisplayed())
                 .findFirst()
                 .ifPresent(element ->  element.click());
+
+        //set travellers
+        WebElement travellers = driver.findElement(By.id("travellersInput"));
+        travellers.click();
+        WebElement adultsPlusButton = driver.findElement(By.id("adultPlusBtn"));
+        adultsPlusButton.click();
+        WebElement childPlusButton = driver.findElement(By.id("childPlusBtn"));
+        childPlusButton.click();
     }
 }
