@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pl.seleniumdemo.pages.HotelSearchPage;
+import pl.seleniumdemo.pages.SignUpPage;
 
 import java.util.List;
 
@@ -13,29 +15,19 @@ public class SignUpTest extends BaseTest {
 
     @Test
     public void signUpTest() {
-        //set sign up site
-        //driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        WebElement myAccBttn = driver.findElements(By.xpath("//li[@id='li_myaccount']")).get(1);
-        myAccBttn.click();
-        WebElement sngUpBttn = driver.findElements(By.xpath("//a[text()='  Sign Up']")).get(1);
-        sngUpBttn.click();
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.openSignUpForm();
 
-        //set form & assert
+        SignUpPage signUpPage = new SignUpPage(driver);
+        signUpPage.setFirstName("Marcin");
+        signUpPage.setLastName("Testerski");
+        signUpPage.setPhone("123456789");
         int randomNumber = (int) (Math.random()*10000);
-        WebElement firstName = driver.findElement(By.name("firstname"));
-        firstName.sendKeys("Marcin");
-        WebElement lastName = driver.findElement(By.name("lastname"));
-        lastName.sendKeys("Testerski");
-        WebElement phoneNumber = driver.findElement(By.name("phone"));
-        phoneNumber.sendKeys("123456789");
-        WebElement emailAddress = driver.findElement(By.name("email"));
-        emailAddress.sendKeys("test"+randomNumber+"@tester.com");
-        WebElement password = driver.findElement(By.name("password"));
-        password.sendKeys("test123");
-        WebElement confirmPassword = driver.findElement(By.name("confirmpassword"));
-        confirmPassword.sendKeys("test123");
-        WebElement signUpBttn = driver.findElement(By.xpath("//button[contains(@class, 'signupbtn')]"));
-        signUpBttn.click();
+        signUpPage.setEmail("test"+randomNumber+"@testerski.pl");
+        signUpPage.setPassword("test123");
+        signUpPage.confirmPassword("test123");
+        signUpPage.signUpButton();
+
 
         WebElement heading = driver.findElement(By.xpath("//h3[@class='RTL']"));
         Assert.assertEquals(heading.getText(), "Hi, Marcin Testerski");
