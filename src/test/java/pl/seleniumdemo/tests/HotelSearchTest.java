@@ -1,6 +1,5 @@
 package pl.seleniumdemo.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
@@ -23,9 +22,9 @@ public class HotelSearchTest extends BaseTest {
         ResultsPage resultsPage = new ResultsPage(driver);
         List<String> hotelNames = resultsPage.getHotelNames();
 
-        Assert.assertEquals("Jumeirah Beach Hotel",hotelNames.get(0));
-        Assert.assertEquals("Oasis Beach Tower",hotelNames.get(1));
-        Assert.assertEquals("Rose Rayhaan Rotana",hotelNames.get(2));
-        Assert.assertEquals("Hyatt Regency Perth",hotelNames.get(3));
+        Assert.assertEquals(hotelNames.get(0), "Jumeirah Beach Hotel");
+        Assert.assertEquals(hotelNames.get(1), "Oasis Beach Tower");
+        Assert.assertEquals(hotelNames.get(2), "Rose Rayhaan Rotana");
+        Assert.assertEquals(hotelNames.get(3), "Hyatt Regency Perth");
     }
 }
